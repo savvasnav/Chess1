@@ -11,17 +11,20 @@ public class Pawn extends Piece {
     public boolean isValidMove(int newX, int newY, Piece[][] board){
 
         int startRow = isWhite ? 6 : 1;
-        int direction = isWhite ? 1 : -1;
+        int direction = isWhite ? -1 : 1;
 
-        if (!hasMoved && newX == x + 2 && newY == y && board[x*direction] == null && board[newX][newY] == null){
+        if (newX == x && y == startRow && newY == y + 2 * direction &&
+                board[newX][y + direction] == null && board[newX][newY] == null) {
             return true;
         }
-        if (newX == x * direction && newY == y && board[newX][newY] == null){
+        if (newX == x && newY == y + direction && board[newX][newY] == null){
             return true;
         }
-        if (newX == x * direction && y == Math.abs(newY - y) && board[newX][newY].isWhite == !isWhite){
+        if (Math.abs(newX - x) == 1  && newY == y + direction && board[newX][newY].isWhite == !isWhite){
             return true;
         }
+
+
         return false;
     }
     public void move(int newX,int newY){

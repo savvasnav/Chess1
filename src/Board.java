@@ -1,5 +1,7 @@
 import Pieces.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -7,7 +9,13 @@ import javafx.scene.shape.Rectangle;
 
 public class Board {
     private final Piece[][] boardTiles ;
+    private boolean whiteTurn = true;
     private final GridPane gridPane;
+    private Piece selectedPiece = null;
+    private int selectedX = -1;
+    private int selectedY = -1;
+    private int x;
+    private int y;
     public Board(){
 
         boardTiles = new Piece[8][8];
@@ -22,11 +30,12 @@ public class Board {
 
 
 
+
     }
     private void initPieces(){
         for (int i = 0; i < 8; i++) {
             boardTiles[i][6] = new Pawn (i,6,true);
-            boardTiles[i][1] = new Pawn (i,2,false);
+            boardTiles[i][1] = new Pawn (i,1,false);
         }
         // Initialize Rooks
         boardTiles[0][0] = new Rook(0,0,false);
@@ -69,11 +78,56 @@ public class Board {
                     imageView.setFitHeight(60);
                     square.getChildren().add(imageView);
                 }
+                final int x = col;
+                final int y = row;
+                square.setOnMouseClicked(event -> handleClick(x,y));
                 gridPane.add(square,col,row);
             }
+
         }
     }
     public GridPane getBoard() {
         return this.gridPane;
     }
+
+    public void handleClick(int x, int y) {
+        Piece clickedPiece = boardTiles[x][y];
+
+        if (selectedPiece == null) {
+            // No piece selected yet: select if it's the current player's piece
+            if (clickedPiece != null && clickedPiece.isWhite() == whiteTurn) {
+                selectedPiece = clickedPiece;
+                selectedX = x;
+                selectedY = y;
+                System.out.println("Selected piece at " + x + ", " + y);
+            }
+        } else {
+            // Piece already selected: try to move
+            if (selectedPiece.isValidMove(x, y, boardTiles)) {
+                movePiece(selectedX, selectedY, x, y);
+                whiteTurn = !whiteTurn; // switch turn
+            } else {
+                System.out.println("Invalid move to " + x + ", " + y);
+            }
+            // Reset selection after move attempt
+            selectedPiece = null;
+            selectedX = -1;
+            selectedY = -1;
+        }
+
+        drawBoard();  // Refresh UI
+    }
+
+
+    private void movePiece(int x,int y, int newX, int newY){
+        Piece pieceToMove = boardTiles[x][y];
+        pieceToMove.move(newX,newY);
+        boardTiles[newX][newY] = pieceToMove;
+        boardTiles[x][y] = null;
+
+
+
+
+    }
+
 }

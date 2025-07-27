@@ -15,4 +15,8 @@ public abstract class Piece {
         return isWhite;
     }
     public abstract Image getImage();
+    public void move(int newX,int newY){
+        this.x = newX;
+        this.y = newY;
+    }
 }
