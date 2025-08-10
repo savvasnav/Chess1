@@ -8,20 +8,32 @@ public class Bishop extends Piece {
     }
     @Override
     public boolean isValidMove(int newX, int newY,Piece[][] board){
-        int direction = isWhite ? -1 : 1;
-        int startRow = isWhite ? 7 : 0;
-        if(Math.abs(x - newX) == Math.abs(y - newY) && board[newX][newY] == null){
-            return true;
+
+        if(Math.abs(x-newX)!=Math.abs(y-newY)){
+            return false;
         }
-        if (Math.abs(x - newX) == Math.abs(y - newY) && board[newX][newY] == null && board[newX][newY].isWhite == !isWhite){
-            return true;
+        int xDirection = (newX - x) > 0 ? 1 : -1;
+        int yDirection = (newY - y) > 0 ? 1 : -1;
+        System.out.println(xDirection);
+        System.out.println(yDirection);
+
+        int currX = x + xDirection;
+        int currY = y + yDirection;
+        System.out.println(currX);
+        System.out.println(currY);
+        while(currX != newX && currY!=newY){
+            if(board [currX] [currY] != null){
+                return false;
+            }
+            currX = currX + xDirection;
+            currY = currY + yDirection;
         }
-    return false;
+        Piece target = board[newX][newY];
+        return (target == null || target.isWhite != this.isWhite) ;
+
+
     }
-    public void move(int newX, int newY){
-        this.x = newX;
-        this.y = newY;
-    }
+
 
     @Override
     public Image getImage() {

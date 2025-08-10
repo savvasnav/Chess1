@@ -43,25 +43,25 @@ public class Board {
         boardTiles[0][7] = new Rook(0,7,true);
         boardTiles[7][7] = new Rook(7,7,true);
         //
-        // Initialize Bishops
-        boardTiles[1][0] = new Bishop(1,0,false);
-        boardTiles[6][0]= new Bishop(6,0,false);
-        boardTiles[1][7] = new Bishop(1,7,true);
-        boardTiles[6][7] = new Bishop(6,7,true);
-        //
         // Initialize Knights
-        boardTiles[2][0] = new Knight(2,0,false);
-        boardTiles[5][0]= new Knight(5,0,false);
-        boardTiles[2][7] = new Knight(2,7,true);
-        boardTiles[5][7] = new Knight(5,7,true);
+        boardTiles[1][0] = new Knight(1,0,false);
+        boardTiles[6][0]= new Knight(6,0,false);
+        boardTiles[1][7] = new Knight(1,7,true);
+        boardTiles[6][7] = new Knight(6,7,true);
+        //
+        // Initialize Bishops
+        boardTiles[2][0] = new Bishop(2,0,false);
+        boardTiles[5][0]= new Bishop(5,0,false);
+        boardTiles[2][7] = new Bishop(2,7,true);
+        boardTiles[5][7] = new Bishop(5,7,true);
         //
         // Initialize Queen
-        boardTiles[4][0] = new Queen(4,0,false);
-        boardTiles[4][7]= new Queen(4,7,true);
+        boardTiles[3][0] = new Queen(3,0,false);
+        boardTiles[3][7]= new Queen(3,7,true);
         //
         // Initialize King
-        boardTiles[3][0] = new King(3,0,false);
-        boardTiles[3][7]= new King(3,7,true);
+        boardTiles[4][0] = new King(4,0,false);
+        boardTiles[4][7]= new King(4,7,true);
     }
     private void drawBoard(){
         for (int row = 0; row < 8; row++) {
@@ -104,6 +104,7 @@ public class Board {
         } else {
             // Piece already selected: try to move
             if (selectedPiece.isValidMove(x, y, boardTiles)) {
+                System.out.println("New path at " + x + ", " + y);
                 movePiece(selectedX, selectedY, x, y);
                 whiteTurn = !whiteTurn; // switch turn
             } else {

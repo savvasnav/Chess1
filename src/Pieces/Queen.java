@@ -8,21 +8,31 @@ public class Queen extends Piece {
     }
     @Override
     public boolean isValidMove(int newX, int newY,Piece[][] board){
-        int direction = isWhite ? -1 : 1;
-        int startRow = isWhite ? 7 : 0;
-        if(Math.abs(x - newX) == Math.abs(y - newY) && board[newX][newY] == null){
-            return true;
+        if(((x==newX)&&(y==newY))){
+            return false;
         }
-        if (Math.abs(x - newX) == Math.abs(y - newY) && board[newX][newY] == null && board[newX][newY].isWhite == !isWhite){
-            return true;
+        int dx = newX - x;
+        int dy = newY - y;
+
+        int xDirection = Integer.compare(dx,0);
+        int yDirection = Integer.compare(dy,0);
+
+        if(Math.abs(dx)!=Math.abs(dy) && dx!=0 && dy!=0){
+            return false;
         }
-        if((x==newX)||(y==newY)){
-            return true;
+        int currX = x+xDirection;
+        int currY = y+yDirection;
+        while(currX != newX && currY!=newY){
+            if(board [currX] [currY] != null){
+                return false;
+            }
+            currX = currX + xDirection;
+            currY = currY + yDirection;
         }
-        if((x==newX)||(y==newY) && board[newX][newY].isWhite == !isWhite){
-            return true;
-        }
-        return false;
+        Piece target = board[newX][newY];
+        return (target == null || target.isWhite != this.isWhite) ;
+
+
     }
     public void move(int newX, int newY){
         this.x = newX;

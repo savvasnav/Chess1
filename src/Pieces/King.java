@@ -8,11 +8,7 @@ public class King extends Piece {
     }
     @Override
     public boolean isValidMove(int newX, int newY, Piece[][] board){
-        int position = isWhite ? -1 : 1;
-        int startRow = isWhite ? 6 : 1;
-        if(((x==newX) && Math.abs(y-newY)== 1 )|| ((y==newY) && Math.abs(x-newX)== 1)){
-            return true;
-        }
+
         if((((x==newX) && Math.abs(y-newY)== 1 )|| ((y==newY) && Math.abs(x-newX)== 1))&& board[newX][newY].isWhite == !isWhite){
             return true;
         }

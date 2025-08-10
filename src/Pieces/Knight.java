@@ -11,10 +11,12 @@ public class Knight extends Piece {
     @Override
     public boolean isValidMove(int newX, int newY, Piece[][] board){
         int position = isWhite ? -1 : 1;
-        int startRow = isWhite ? 6 : 1;
-
-        if(((Math.abs(x-newX)== 0 && Math.abs(y-newY) == 2)||(Math.abs(x-newX)== 2 && Math.abs(y-newY) == 0)) ){
-            return true;
+        boolean var = (Math.abs(newX-x)==2&&Math.abs(newY-y)!=2)||(Math.abs(newX-x)!=2&&Math.abs(newY-y)==2);
+        if(var){
+            Piece target = board[newX][newY];
+            if(target == null || target.isWhite == !isWhite) {
+                return true;
+            }
         }
         return false;
     }
