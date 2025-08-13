@@ -8,10 +8,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Board {
+    public int currentTurn = 1;
     private final Piece[][] boardTiles ;
     private boolean whiteTurn = true;
     private final GridPane gridPane;
-    private Piece selectedPiece = null;
+    public Piece selectedPiece = null;
+    public Pawn enPassantTarget = null;
     private int selectedX = -1;
     private int selectedY = -1;
     private int x;
@@ -26,11 +28,6 @@ public class Board {
 
         // Draw the board UI
         drawBoard();
-
-
-
-
-
     }
     private void initPieces(){
         for (int i = 0; i < 8; i++) {
@@ -104,6 +101,7 @@ public class Board {
         } else {
             // Piece already selected: try to move
             if (selectedPiece.isValidMove(x, y, boardTiles)) {
+
                 System.out.println("New path at " + x + ", " + y);
                 movePiece(selectedX, selectedY, x, y);
                 whiteTurn = !whiteTurn; // switch turn
@@ -122,13 +120,19 @@ public class Board {
 
     private void movePiece(int x,int y, int newX, int newY){
         Piece pieceToMove = boardTiles[x][y];
+
+        if(pieceToMove instanceof Pawn && boardTiles[newX][newY]==null && Math.abs(newX-x)==1 ){
+           boardTiles[newX][newY + (pieceToMove.isWhite() ? 1 : -1) ]= null;
+        }
         pieceToMove.move(newX,newY);
         boardTiles[newX][newY] = pieceToMove;
         boardTiles[x][y] = null;
-
-
-
-
+        if(pieceToMove == enPassantTarget && Math.abs(newY - y) == 2){
+            enPassantTarget = (Pawn) pieceToMove;
+        }
+        else{
+            enPassantTarget = null;
+        }
     }
 
 }

@@ -1,16 +1,8 @@
-import Pieces.Pawn;
-import Pieces.Piece;
 import javafx.application.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.*;
 
 public class Main extends Application {

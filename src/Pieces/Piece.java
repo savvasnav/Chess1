@@ -3,7 +3,8 @@ package Pieces;
 import javafx.scene.image.Image;
 
 public abstract class Piece {
-    protected int x,y;
+    protected int x;
+    protected int y;
     protected boolean isWhite;
     public Piece(int x, int y,boolean isWhite){
         this.x = x;
@@ -19,4 +20,15 @@ public abstract class Piece {
         this.x = newX;
         this.y = newY;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+
+
 }
