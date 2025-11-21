@@ -19,6 +19,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
     testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
+    implementation 'org.jetbrains:annotations:24.0.1'
 }
 
 test {
@@ -35,5 +36,5 @@ javafx {
 }
 
 application {
-    mainClass = 'Main' // or e.g. chess.Main if your Main.java has a package
+    mainClass = 'chess.Main' // or e.g. chess.Main if your Main.java has a package
 }
